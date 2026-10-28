@@ -289,9 +289,36 @@ export default function App() {
           phase: "Phase 1: Environment & Credential Configuration",
           icon: "ShieldCheck",
           steps: [
-            `Gather API keys for target systems.`,
+            `Gather API keys for target systems (${systems.split(',')[0] || 'Primary System'}).`,
             "Configure authentication tokens and set up security webhooks.",
             "Test access endpoints to confirm system connectivity."
+          ]
+        },
+        {
+          phase: "Phase 2: Workflow & Logic Deployment",
+          icon: "Bot",
+          steps: [
+            "Deploy integration triggers and dynamic payload mappers.",
+            "Establish automated AI communication scripts and context templates.",
+            "Route responses into designated notification channels."
+          ]
+        },
+        {
+          phase: "Phase 3: Team Onboarding & Training",
+          icon: "Users",
+          steps: [
+            "Configure user permissions and team assignment rules.",
+            "Train team members on reviewing automated task outputs.",
+            "Establish alert escalation policies for urgent leads."
+          ]
+        },
+        {
+          phase: "Phase 4: Testing & Launch",
+          icon: "Rocket",
+          steps: [
+            "Execute simulated end-to-end workflow runs.",
+            "Verify data consistency across all connected databases.",
+            "Activate live production schedule."
           ]
         }
       ]
@@ -430,7 +457,6 @@ export default function App() {
 
           <button
             onClick={() => {
-              if (remainingFreeRuns > 0) setRemainingFreeRuns(prev => prev - 1);
               runAnalysis();
             }}
             disabled={isAnalyzing}
