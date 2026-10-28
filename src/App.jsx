@@ -334,9 +334,9 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 font-sans flex flex-col antialiased relative m-0 p-0">
+    <div className="min-h-screen bg-slate-950 text-slate-100 font-sans flex flex-col antialiased relative m-0 p-0 -mt-2">
       {/* Top Navbar - Sticky & Flush */}
-      <header className="border-b border-slate-800 bg-slate-900/95 backdrop-blur sticky top-0 z-50 m-0">
+      <header className="border-b border-slate-800 bg-slate-900/95 backdrop-blur sticky top-0 z-50 m-0 p-0">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
           <div className="flex items-center space-x-2.5">
             <div className="bg-gradient-to-tr from-cyan-500 to-blue-600 p-1.5 rounded-lg text-white shadow-md shadow-cyan-500/20">
@@ -350,7 +350,7 @@ export default function App() {
       </header>
 
       {/* Main Container - Flush with zero top margin */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-3 pb-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mt-0">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-2 pb-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mt-0">
         
         {/* LEFT COLUMN */}
         <section className="lg:col-span-5 space-y-6">
