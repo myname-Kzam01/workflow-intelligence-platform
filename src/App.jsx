@@ -232,8 +232,7 @@ export default function App() {
               <h1 className="text-lg font-bold bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent">
                 Workflow Intelligence Platform
               </h1>
-              <p className="text-xs text-cyan-400 font-medium">Business Automation & Implementation Architect</p>
-            </div>
+              </div>
           </div>
         </div>
       </header>
