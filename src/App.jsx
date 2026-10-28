@@ -9,8 +9,6 @@ import {
 // ==========================================
 // BACKEND AFFILIATE MAPPINGS (ADMIN ONLY)
 // ==========================================
-// Map specific tool names or keywords to your private affiliate referral links.
-// When users click Mac/Win download buttons, these links are triggered behind the scenes.
 const TOOL_AFFILIATE_MAP = {
   "Vapi.ai": "https://vapi.ai",
   "Bland.ai": "https://bland.ai",
@@ -23,7 +21,6 @@ const TOOL_AFFILIATE_MAP = {
   "Default": "https://vapi.ai"
 };
 
-// Helper function to resolve the correct backend affiliate link without showing it on UI
 const getAffiliateUrl = (toolName, masterFallbackLink) => {
   for (const [key, link] of Object.entries(TOOL_AFFILIATE_MAP)) {
     if (toolName.toLowerCase().includes(key.toLowerCase())) {
@@ -58,14 +55,13 @@ const PRESETS = [
   }
 ];
 
-// Pre-calculated Architecture & Step-by-step implementation for Demo Preset 1
 const DEMO_ANALYSIS = {
   summary: "This custom automation architecture connects listing data sources with conversational AI voice calling and dynamic mobile agent notifications for seamless lead conversion.",
   requiredSoftware: [
-    { name: "Vapi.ai / Bland.ai", category: "Conversational Voice AI", purpose: "Executes outbound automated phone calls with natural conversational interruption handling.", downloadMac: "#", downloadWin: "#" },
-    { name: "Gemini 3 Flash", category: "LLM Intelligence & Extraction", purpose: "Parses live call audio transcripts in real-time to extract appraisal interest and seller intent.", downloadMac: "#", downloadWin: "#" },
-    { name: "WhatsApp Business API", category: "Multi-Channel Messaging", purpose: "Dispatches instant alerts and 1-click booking links to assigned real estate agents.", downloadMac: "#", downloadWin: "#" },
-    { name: "Rex CRM / VaultRE", category: "System of Record", purpose: "Stores listing contract dates and logs automated outreach history inside client timelines.", downloadMac: "#", downloadWin: "#" }
+    { name: "Vapi.ai / Bland.ai", category: "Conversational Voice AI", purpose: "Executes outbound automated phone calls with natural conversational interruption handling." },
+    { name: "Gemini 3 Flash", category: "LLM Intelligence & Extraction", purpose: "Parses live call audio transcripts in real-time to extract appraisal interest and seller intent." },
+    { name: "WhatsApp Business API", category: "Multi-Channel Messaging", purpose: "Dispatches instant alerts and 1-click booking links to assigned real estate agents." },
+    { name: "Rex CRM / VaultRE", category: "System of Record", purpose: "Stores listing contract dates and logs automated outreach history inside client timelines." }
   ],
   architectureSteps: [
     {
@@ -150,10 +146,8 @@ export default function App() {
   const [activeTab, setActiveTab] = useState("visualizer");
   const [copied, setCopied] = useState(false);
 
-  // Workflow History State (starts with presets)
   const [history, setHistory] = useState(PRESETS);
 
-  // Load from history item
   const loadHistoryItem = (item) => {
     setIndustry(item.industry);
     setCountry(item.country);
@@ -166,7 +160,6 @@ export default function App() {
     }
   };
 
-  // Helper to render correct icon component safely
   const renderPhaseIcon = (iconName) => {
     switch (iconName) {
       case 'ShieldCheck': return <ShieldCheck className="w-4 h-4" />;
@@ -177,7 +170,6 @@ export default function App() {
     }
   };
 
-  // Run or Simulate Analysis Engine
   const runAnalysis = async (customInput = null) => {
     setIsAnalyzing(true);
     const textToAnalyze = customInput?.request || requestText;
@@ -194,7 +186,6 @@ export default function App() {
         setAnalysis(DEMO_ANALYSIS);
         setIsAnalyzing(false);
       } else {
-        // Dynamic analysis via Gemini API call
         try {
           const systemPrompt = `You are an Enterprise Automation Architect & Business Systems Specialist. Create an end-to-end technical blueprint, recommended AI software stack, and actionable step-by-step business implementation guide based on the user's request. Return JSON matching:
           {
@@ -258,7 +249,6 @@ export default function App() {
         }
       }
 
-      // Add to History
       const newHistoryItem = {
         title: `${currentIndustry} - ${textToAnalyze.slice(0, 32)}...`,
         industry: currentIndustry,
@@ -275,9 +265,9 @@ export default function App() {
   const getFallbackAnalysis = (ind, cnt, sys) => ({
     summary: `Automated integration solution for ${ind} in ${cnt} connecting existing tools to AI agents.`,
     requiredSoftware: [
-      { name: "Gemini 3 Flash", category: "LLM Orchestration", purpose: "Handles automated reasoning, payload mapping, and conditional routing.", downloadMac: "#", downloadWin: "#" },
-      { name: "Make.com / Zapier", category: "Integration Middleware", purpose: "Connects triggers and webhooks across disparate software platforms.", downloadMac: "#", downloadWin: "#" },
-      { name: "Twilio / SendGrid", category: "Communication Gateway", purpose: "Handles outbound SMS, voice notifications, and email alerts.", downloadMac: "#", downloadWin: "#" }
+      { name: "Gemini 3 Flash", category: "LLM Orchestration", purpose: "Handles automated reasoning, payload mapping, and conditional routing." },
+      { name: "Make.com / Zapier", category: "Integration Middleware", purpose: "Connects triggers and webhooks across disparate software platforms." },
+      { name: "Twilio / SendGrid", category: "Communication Gateway", purpose: "Handles outbound SMS, voice notifications, and email alerts." }
     ],
     architectureSteps: [
       { step: 1, name: "Event Extraction", type: "Trigger Source", tech: "Webhooks / System API", details: "Captures trigger events from primary database or portal." },
@@ -344,9 +334,9 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 font-sans flex flex-col antialiased relative">
-      {/* Top Navbar - Clean, Compact & Flush */}
-      <header className="border-b border-slate-800 bg-slate-900/95 backdrop-blur sticky top-0 z-50">
+    <div className="min-h-screen bg-slate-950 text-slate-100 font-sans flex flex-col antialiased relative m-0 p-0">
+      {/* Top Navbar - Sticky & Flush */}
+      <header className="border-b border-slate-800 bg-slate-900/95 backdrop-blur sticky top-0 z-50 m-0">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
           <div className="flex items-center space-x-2.5">
             <div className="bg-gradient-to-tr from-cyan-500 to-blue-600 p-1.5 rounded-lg text-white shadow-md shadow-cyan-500/20">
@@ -359,13 +349,12 @@ export default function App() {
         </div>
       </header>
 
-      {/* Main Container - Flush with no top gap */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      {/* Main Container - Flush with zero top margin */}
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-3 pb-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mt-0">
         
-        {/* LEFT COLUMN: Workflow Intake & Controls (5 cols) */}
+        {/* LEFT COLUMN */}
         <section className="lg:col-span-5 space-y-6">
           
-          {/* History Card */}
           <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl">
             <div className="flex items-center justify-between mb-3">
               <h2 className="text-sm font-semibold text-slate-300 flex items-center">
@@ -390,7 +379,6 @@ export default function App() {
             </div>
           </div>
 
-          {/* Workflow Intake Form */}
           <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-5">
             <div className="border-b border-slate-800 pb-4">
               <h2 className="text-base font-bold text-white flex items-center">
@@ -401,7 +389,6 @@ export default function App() {
               </p>
             </div>
 
-            {/* Industry & Country Inputs */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-xs font-semibold text-slate-300 mb-1.5 flex items-center">
@@ -430,7 +417,6 @@ export default function App() {
               </div>
             </div>
 
-            {/* Target Systems Used */}
             <div>
               <label className="block text-xs font-semibold text-slate-300 mb-1.5 flex items-center">
                 <Database className="w-3.5 h-3.5 mr-1 text-slate-400" /> Target Systems & Tools Used
@@ -444,7 +430,6 @@ export default function App() {
               />
             </div>
 
-            {/* Requested Automation Workflow */}
             <div>
               <label className="block text-xs font-semibold text-slate-300 mb-1.5 flex items-center">
                 <Terminal className="w-3.5 h-3.5 mr-1 text-slate-400" /> Requested Automation Workflow
@@ -458,7 +443,6 @@ export default function App() {
               />
             </div>
 
-            {/* Analyze Button */}
             <button
               onClick={() => runAnalysis()}
               disabled={isAnalyzing}
@@ -480,10 +464,9 @@ export default function App() {
           </div>
         </section>
 
-        {/* RIGHT COLUMN: Output Tabs & Architecture (7 cols) */}
+        {/* RIGHT COLUMN */}
         <section className="lg:col-span-7 flex flex-col space-y-6">
 
-          {/* Navigation Bar for Output */}
           <div className="bg-slate-900 border border-slate-800 p-1.5 rounded-2xl flex flex-wrap items-center justify-between gap-2 shadow-xl">
             <div className="flex space-x-1">
               <button
@@ -538,7 +521,6 @@ export default function App() {
             </div>
           </div>
 
-          {/* TAB 1: Visual Workflow Architecture */}
           {activeTab === "visualizer" && (
             <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl flex-1 flex flex-col space-y-6">
               <div>
@@ -555,7 +537,6 @@ export default function App() {
                 </p>
               </div>
 
-              {/* Required AI Software Stack Box */}
               {analysis?.requiredSoftware && (
                 <div className="bg-slate-950 border border-cyan-500/30 rounded-xl p-4 space-y-3">
                   <div className="flex items-center space-x-2 border-b border-slate-800 pb-2">
@@ -607,7 +588,6 @@ export default function App() {
                 </div>
               )}
 
-              {/* Node Flow Map */}
               <div className="space-y-4">
                 {analysis?.architectureSteps?.map((step, idx) => (
                   <div key={idx} className="relative flex items-start group">
@@ -639,7 +619,6 @@ export default function App() {
                 ))}
               </div>
 
-              {/* Summary Banner */}
               <div className="mt-auto bg-slate-950 border border-slate-800/90 rounded-xl p-4 flex items-start space-x-3">
                 <CheckCircle2 className="w-5 h-5 text-emerald-400 flex-shrink-0 mt-0.5" />
                 <div className="text-xs text-slate-300">
@@ -649,7 +628,6 @@ export default function App() {
             </div>
           )}
 
-          {/* TAB 2: Step-by-step Implementation & Business Onboarding Guide */}
           {activeTab === "guide" && (
             <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-6">
               <div>
@@ -689,7 +667,6 @@ export default function App() {
             </div>
           )}
 
-          {/* TAB 3: Technical Blueprint Spec */}
           {activeTab === "blueprint" && (
             <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-5">
               <div className="flex items-center justify-between">
@@ -729,7 +706,6 @@ export default function App() {
 
       </main>
 
-      {/* Footer */}
       <footer className="border-t border-slate-800 py-4 text-center text-xs text-slate-500">
         Workflow Intelligence Platform &bull; End-to-End Automation Architecture & Business Implementation Guides
       </footer>
