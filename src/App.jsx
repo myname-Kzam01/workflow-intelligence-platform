@@ -114,7 +114,6 @@ export default function App() {
   const [analysis, setAnalysis] = useState(DEMO_ANALYSIS);
   const [activeTab, setActiveTab] = useState("visualizer");
   const [copied, setCopied] = useState(false);
-  const [affiliateLink, setAffiliateLink] = useState("");
   const [remainingFreeRuns, setRemainingFreeRuns] = useState(5);
 
   const applyPreset = (preset) => {
@@ -221,10 +220,10 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 font-sans flex flex-col antialiased">
+    <div className="min-h-screen bg-slate-950 text-slate-100 font-sans flex flex-col antialiased m-0 p-0">
       {/* Top Navbar */}
-      <header className="border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <header className="border-b border-slate-800 bg-slate-900/90 backdrop-blur sticky top-0 z-50 mt-0 pt-0">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <div className="bg-gradient-to-tr from-cyan-500 to-blue-600 p-2 rounded-xl text-white shadow-lg shadow-cyan-500/20">
               <Layers className="w-6 h-6" />
@@ -239,129 +238,128 @@ export default function App() {
         </div>
       </header>
 
-      {/* Main Container */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
+      {/* Main Single-Column Vertical Container */}
+      <main className="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col space-y-8">
         
-        {/* LEFT COLUMN */}
-        <section className="lg:col-span-5 space-y-6">
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl">
-            <div className="flex items-center justify-between mb-3">
-              <h2 className="text-sm font-semibold text-slate-300 flex items-center">
-                <Play className="w-4 h-4 mr-2 text-cyan-400" /> Demo Scenarios
-              </h2>
-              <span className="text-xs text-slate-500">Click to instantly populate</span>
-            </div>
-            <div className="space-y-2">
-              {PRESETS.map((p, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => applyPreset(p)}
-                  className="w-full text-left p-3 rounded-xl bg-slate-850 hover:bg-slate-800 border border-slate-800/80 hover:border-cyan-500/50 transition-all text-xs group cursor-pointer"
-                >
-                  <div className="font-semibold text-slate-200 group-hover:text-cyan-300 flex items-center justify-between">
-                    <span>{p.title}</span>
-                    <ChevronRight className="w-3.5 h-3.5 text-slate-500 group-hover:text-cyan-400 group-hover:translate-x-0.5 transition-transform" />
-                  </div>
-                  <p className="text-slate-400 text-[11px] mt-1 line-clamp-1">{p.request}</p>
-                </button>
-              ))}
-            </div>
+        {/* Demo Scenarios Section */}
+        <section className="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl">
+          <div className="flex items-center justify-between mb-3">
+            <h2 className="text-sm font-semibold text-slate-300 flex items-center">
+              <Play className="w-4 h-4 mr-2 text-cyan-400" /> Demo Scenarios
+            </h2>
+            <span className="text-xs text-slate-500">Click to instantly populate</span>
           </div>
-
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-5">
-            <div className="border-b border-slate-800 pb-4">
-              <h2 className="text-lg font-bold text-white flex items-center">
-                <Wrench className="w-5 h-5 mr-2 text-cyan-400" /> Automation Request Intake
-              </h2>
-              <p className="text-xs text-slate-400 mt-1">
-                Enter your industry, current software stack, and workflow goal to generate a full technical architecture and step-by-step onboarding plan.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1.5 flex items-center">
-                  <Building2 className="w-3.5 h-3.5 mr-1 text-slate-400" /> Industry
-                </label>
-                <input
-                  type="text"
-                  value={industry}
-                  onChange={(e) => setIndustry(e.target.value)}
-                  placeholder="e.g. Real Estate, Healthcare"
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-cyan-500 transition-colors"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1.5 flex items-center">
-                  <Globe className="w-3.5 h-3.5 mr-1 text-slate-400" /> Country / Region
-                </label>
-                <input
-                  type="text"
-                  value={country}
-                  onChange={(e) => setCountry(e.target.value)}
-                  placeholder="e.g. Australia, USA"
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-cyan-500 transition-colors"
-                />
-              </div>
-            </div>
-
-            <div>
-              <label className="block text-xs font-semibold text-slate-300 mb-1.5 flex items-center">
-                <Database className="w-3.5 h-3.5 mr-1 text-slate-400" /> Target Systems & Tools Used
-              </label>
-              <input
-                type="text"
-                value={systems}
-                onChange={(e) => setSystems(e.target.value)}
-                placeholder="e.g. realestate.com.au, Rex CRM, WhatsApp, Twilio"
-                className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2.5 text-xs text-slate-200 focus:outline-none focus:border-cyan-500 transition-colors"
-              />
-            </div>
-
-            <div>
-              <label className="block text-xs font-semibold text-slate-300 mb-1.5 flex items-center">
-                <Terminal className="w-3.5 h-3.5 mr-1 text-slate-400" /> Requested Automation Workflow
-              </label>
-              <textarea
-                rows={5}
-                value={requestText}
-                onChange={(e) => setRequestText(e.target.value)}
-                placeholder="Describe your desired workflow step by step..."
-                className="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-slate-200 focus:outline-none focus:border-cyan-500 transition-colors resize-none leading-relaxed"
-              />
-            </div>
-
-            <button
-              onClick={() => {
-                if (remainingFreeRuns > 0) setRemainingFreeRuns(prev => prev - 1);
-                runAnalysis();
-              }}
-              disabled={isAnalyzing}
-              className="w-full bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-bold py-3.5 px-4 rounded-xl shadow-lg shadow-cyan-500/25 flex items-center justify-center space-x-2 transition-all duration-200 text-sm disabled:opacity-50 cursor-pointer"
-            >
-              {isAnalyzing ? (
-                <>
-                  <RefreshCw className="w-4 h-4 animate-spin text-slate-950" />
-                  <span>Building Implementation Architecture...</span>
-                </>
-              ) : (
-                <>
-                  <Sparkles className="w-4 h-4 fill-slate-950" />
-                  <span>Generate Workflow & Implementation Plan ({remainingFreeRuns} Free Left)</span>
-                </>
-              )}
-            </button>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+            {PRESETS.map((p, idx) => (
+              <button
+                key={idx}
+                onClick={() => applyPreset(p)}
+                className="w-full text-left p-3 rounded-xl bg-slate-850 hover:bg-slate-800 border border-slate-800/80 hover:border-cyan-500/50 transition-all text-xs group cursor-pointer"
+              >
+                <div className="font-semibold text-slate-200 group-hover:text-cyan-300 flex items-center justify-between">
+                  <span>{p.title}</span>
+                  <ChevronRight className="w-3.5 h-3.5 text-slate-500 group-hover:text-cyan-400 group-hover:translate-x-0.5 transition-transform" />
+                </div>
+                <p className="text-slate-400 text-[11px] mt-1 line-clamp-2">{p.request}</p>
+              </button>
+            ))}
           </div>
         </section>
 
-        {/* RIGHT COLUMN */}
-        <section className="lg:col-span-7 flex flex-col space-y-6">
-          <div className="bg-slate-900 border border-slate-800 p-1.5 rounded-2xl flex items-center justify-between shadow-xl">
-            <div className="flex space-x-1">
+        {/* Automation Request Intake Section */}
+        <section className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-5">
+          <div className="border-b border-slate-800 pb-4">
+            <h2 className="text-lg font-bold text-white flex items-center">
+              <Wrench className="w-5 h-5 mr-2 text-cyan-400" /> Automation Request Intake
+            </h2>
+            <p className="text-xs text-slate-400 mt-1">
+              Enter your industry, current software stack, and workflow goal to generate a full technical architecture and step-by-step onboarding plan.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-xs font-semibold text-slate-300 mb-1.5 flex items-center">
+                <Building2 className="w-3.5 h-3.5 mr-1 text-slate-400" /> Industry
+              </label>
+              <input
+                type="text"
+                value={industry}
+                onChange={(e) => setIndustry(e.target.value)}
+                placeholder="e.g. Real Estate, Healthcare"
+                className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-cyan-500 transition-colors"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-semibold text-slate-300 mb-1.5 flex items-center">
+                <Globe className="w-3.5 h-3.5 mr-1 text-slate-400" /> Country / Region
+              </label>
+              <input
+                type="text"
+                value={country}
+                onChange={(e) => setCountry(e.target.value)}
+                placeholder="e.g. Australia, USA"
+                className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-cyan-500 transition-colors"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-xs font-semibold text-slate-300 mb-1.5 flex items-center">
+              <Database className="w-3.5 h-3.5 mr-1 text-slate-400" /> Target Systems & Tools Used
+            </label>
+            <input
+              type="text"
+              value={systems}
+              onChange={(e) => setSystems(e.target.value)}
+              placeholder="e.g. realestate.com.au, Rex CRM, WhatsApp, Twilio"
+              className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2.5 text-xs text-slate-200 focus:outline-none focus:border-cyan-500 transition-colors"
+            />
+          </div>
+
+          <div>
+            <label className="block text-xs font-semibold text-slate-300 mb-1.5 flex items-center">
+              <Terminal className="w-3.5 h-3.5 mr-1 text-slate-400" /> Requested Automation Workflow
+            </label>
+            <textarea
+              rows={4}
+              value={requestText}
+              onChange={(e) => setRequestText(e.target.value)}
+              placeholder="Describe your desired workflow step by step..."
+              className="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-slate-200 focus:outline-none focus:border-cyan-500 transition-colors resize-none leading-relaxed"
+            />
+          </div>
+
+          <button
+            onClick={() => {
+              if (remainingFreeRuns > 0) setRemainingFreeRuns(prev => prev - 1);
+              runAnalysis();
+            }}
+            disabled={isAnalyzing}
+            className="w-full bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-bold py-3.5 px-4 rounded-xl shadow-lg shadow-cyan-500/25 flex items-center justify-center space-x-2 transition-all duration-200 text-sm disabled:opacity-50 cursor-pointer"
+          >
+            {isAnalyzing ? (
+              <>
+                <RefreshCw className="w-4 h-4 animate-spin text-slate-950" />
+                <span>Building Implementation Architecture...</span>
+              </>
+            ) : (
+              <>
+                <Sparkles className="w-4 h-4 fill-slate-950" />
+                <span>Generate Workflow & Implementation Plan ({remainingFreeRuns} Free Left)</span>
+              </>
+            )}
+          </button>
+        </section>
+
+        {/* Output Navigation & Results Section */}
+        <section className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-6">
+          <div className="flex flex-col sm:flex-row items-center justify-between border-b border-slate-800 pb-4 gap-4">
+            <div className="flex space-x-1 w-full sm:w-auto overflow-x-auto pb-1 sm:pb-0">
               <button
                 onClick={() => setActiveTab("visualizer")}
-                className={`px-3.5 py-2 rounded-xl text-xs font-semibold flex items-center transition-all cursor-pointer ${
+                className={`px-4 py-2 rounded-xl text-xs font-semibold flex items-center transition-all cursor-pointer whitespace-nowrap ${
                   activeTab === "visualizer"
                     ? "bg-slate-800 text-cyan-400 border border-slate-700 shadow"
                     : "text-slate-400 hover:text-slate-200"
@@ -372,7 +370,7 @@ export default function App() {
 
               <button
                 onClick={() => setActiveTab("guide")}
-                className={`px-3.5 py-2 rounded-xl text-xs font-semibold flex items-center transition-all cursor-pointer ${
+                className={`px-4 py-2 rounded-xl text-xs font-semibold flex items-center transition-all cursor-pointer whitespace-nowrap ${
                   activeTab === "guide"
                     ? "bg-slate-800 text-cyan-400 border border-slate-700 shadow"
                     : "text-slate-400 hover:text-slate-200"
@@ -383,7 +381,7 @@ export default function App() {
 
               <button
                 onClick={() => setActiveTab("blueprint")}
-                className={`px-3.5 py-2 rounded-xl text-xs font-semibold flex items-center transition-all cursor-pointer ${
+                className={`px-4 py-2 rounded-xl text-xs font-semibold flex items-center transition-all cursor-pointer whitespace-nowrap ${
                   activeTab === "blueprint"
                     ? "bg-slate-800 text-cyan-400 border border-slate-700 shadow"
                     : "text-slate-400 hover:text-slate-200"
@@ -393,26 +391,29 @@ export default function App() {
               </button>
             </div>
 
-            <div className="flex items-center space-x-2 pr-2">
+            <div className="flex items-center space-x-2">
               <button
                 onClick={copyBlueprint}
-                className="p-2 rounded-lg bg-slate-800 hover:bg-slate-750 text-slate-300 transition-colors cursor-pointer"
+                className="p-2 rounded-lg bg-slate-800 hover:bg-slate-750 text-slate-300 transition-colors cursor-pointer flex items-center text-xs px-3"
                 title="Copy Analysis JSON"
               >
-                {copied ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
+                {copied ? <Check className="w-4 h-4 text-emerald-400 mr-1.5" /> : <Copy className="w-4 h-4 mr-1.5" />}
+                <span>{copied ? "Copied" : "Copy"}</span>
               </button>
               <button
                 onClick={downloadBlueprint}
-                className="p-2 rounded-lg bg-slate-800 hover:bg-slate-750 text-slate-300 transition-colors cursor-pointer"
+                className="p-2 rounded-lg bg-slate-800 hover:bg-slate-750 text-slate-300 transition-colors cursor-pointer flex items-center text-xs px-3"
                 title="Download Blueprint JSON"
               >
-                <Download className="w-4 h-4" />
+                <Download className="w-4 h-4 mr-1.5" />
+                <span>Export</span>
               </button>
             </div>
           </div>
 
+          {/* TAB 1: Visual Architecture */}
           {activeTab === "visualizer" && (
-            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl flex-1 flex flex-col space-y-6">
+            <div className="space-y-6">
               <div>
                 <div className="flex items-center justify-between">
                   <h3 className="text-base font-bold text-white flex items-center">
@@ -458,7 +459,7 @@ export default function App() {
                 ))}
               </div>
 
-              <div className="mt-auto bg-slate-950 border border-slate-800/90 rounded-xl p-4 flex items-start space-x-3">
+              <div className="bg-slate-950 border border-slate-800/90 rounded-xl p-4 flex items-start space-x-3">
                 <CheckCircle2 className="w-5 h-5 text-emerald-400 flex-shrink-0 mt-0.5" />
                 <div className="text-xs text-slate-300">
                   <strong className="text-slate-100">Workflow Summary:</strong> {analysis.summary}
@@ -467,8 +468,9 @@ export default function App() {
             </div>
           )}
 
+          {/* TAB 2: Implementation Guide */}
           {activeTab === "guide" && (
-            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-6">
+            <div className="space-y-6">
               <div>
                 <h3 className="text-base font-bold text-white flex items-center">
                   <BookOpen className="w-5 h-5 mr-2 text-cyan-400" /> Step-by-Step Business Implementation Guide
@@ -506,23 +508,16 @@ export default function App() {
             </div>
           )}
 
+          {/* TAB 3: Technical Spec */}
           {activeTab === "blueprint" && (
-            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-5">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h3 className="text-base font-bold text-white flex items-center">
-                    <FileText className="w-5 h-5 mr-2 text-cyan-400" /> Exportable Implementation Spec
-                  </h3>
-                  <p className="text-xs text-slate-400 mt-1">
-                    Machine-readable configuration schema for automated system deployment and workflow orchestration.
-                  </p>
-                </div>
-                <button
-                  onClick={downloadBlueprint}
-                  className="px-3 py-1.5 bg-cyan-500 hover:bg-cyan-400 text-slate-950 text-xs font-bold rounded-lg flex items-center transition-colors cursor-pointer"
-                >
-                  <Download className="w-3.5 h-3.5 mr-1.5" /> Export JSON
-                </button>
+            <div className="space-y-5">
+              <div>
+                <h3 className="text-base font-bold text-white flex items-center">
+                  <FileText className="w-5 h-5 mr-2 text-cyan-400" /> Exportable Implementation Spec
+                </h3>
+                <p className="text-xs text-slate-400 mt-1">
+                  Machine-readable configuration schema for automated system deployment and workflow orchestration.
+                </p>
               </div>
 
               <div className="bg-slate-950 border border-slate-800 rounded-xl p-4 font-mono text-xs text-emerald-400 overflow-x-auto max-h-[450px]">
@@ -541,6 +536,7 @@ export default function App() {
             </div>
           )}
         </section>
+
       </main>
 
       <footer className="border-t border-slate-800 py-4 text-center text-xs text-slate-500">
