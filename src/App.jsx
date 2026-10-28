@@ -3,8 +3,19 @@ import {
   Building2, Globe, Wrench, Sparkles, Play, Cpu, CheckCircle2, 
   ArrowRight, Layers, FileText, Download, RefreshCw, Zap,
   Bot, PhoneCall, Database, MessageSquare, Terminal, ChevronRight, Copy, Check,
-  BookOpen, Rocket, ShieldCheck, Users, Workflow
+  BookOpen, Rocket, ShieldCheck, Users, Workflow, ExternalLink
 } from 'lucide-react';
+
+// Affiliate Link Mapping Dictionary for Tools
+const TOOL_AFFILIATE_MAP = {
+  "Vapi.ai": "https://vapi.ai/?via=your_affiliate_id",
+  "Bland.ai": "https://bland.ai/?ref=your_affiliate_id",
+  "Rex CRM": "https://www.rexsoftware.com/?ref=your_affiliate_id",
+  "WhatsApp Business API": "https://business.whatsapp.com/",
+  "Twilio": "https://www.twilio.com/referral/your_affiliate_id",
+  "Gemini 3 Flash": "https://ai.google.dev/",
+  "Default": "https://your-default-affiliate-link.com"
+};
 
 // Preset Scenarios
 const PRESETS = [
@@ -13,7 +24,7 @@ const PRESETS = [
     industry: "Real Estate",
     country: "Australia",
     systems: "realestate.com.au, domain.com.au, Rex CRM, Twilio, WhatsApp, Vapi AI",
-    request: "A real estate business in Australia wants to trigger when listings are finishing their exclusive contract that has been listed on realestate.com.au or domain.com.au, call the homeowner on behalf of a new real estate agent using conversational AI voice, and send the new realestate agent a WhatsApp message to book an appraisal or receive feedback."
+    request: "A real estate business in Australia wants to trigger when listings are finishing their exclusive contract that has been listed on realestate.com.au or domain.com.au, call the homeowner on behalf of a new real estate agent using conversational AI voice, and send the new realestate agent a WhatsApp message to book an appraisal or receive feedback from the call."
   },
   {
     title: "US Healthcare - Patient Intake & Screening",
@@ -64,6 +75,32 @@ const DEMO_ANALYSIS = {
       details: "Pushes immediate notification to the assigned real estate agent with call summary and 1-click booking links for property appraisal."
     }
   ],
+  recommendedTools: [
+    {
+      name: "Vapi.ai",
+      category: "Voice AI Calling",
+      description: "Ultra-low latency conversational voice agent dispatch for automated outbound client calls.",
+      badge: "Multi-Channel",
+      macLink: "https://vapi.ai/?via=mac_download_aff",
+      winLink: "https://vapi.ai/?via=win_download_aff"
+    },
+    {
+      name: "Rex CRM",
+      category: "System of Record",
+      description: "Stores listing contract dates and logs automated outreach history inside client timelines.",
+      badge: "System of Record",
+      macLink: "https://www.rexsoftware.com/?ref=mac_download_aff",
+      winLink: "https://www.rexsoftware.com/?ref=win_download_aff"
+    },
+    {
+      name: "WhatsApp Business API",
+      category: "Messaging",
+      description: "Dispatches instant alerts and 1-click booking links to assigned real estate agents.",
+      badge: "Messaging",
+      macLink: "https://business.whatsapp.com/",
+      winLink: "https://business.whatsapp.com/"
+    }
+  ],
   implementationGuide: [
     {
       phase: "Phase 1: Setup & API Credentials",
@@ -108,13 +145,14 @@ export default function App() {
   const [industry, setIndustry] = useState("Real Estate");
   const [country, setCountry] = useState("Australia");
   const [systems, setSystems] = useState("realestate.com.au, domain.com.au, Rex CRM, Twilio, WhatsApp");
-  const [requestText, setRequestText] = useState("A real estate business in Australia wants to trigger when listings are finishing their exclusive contract that has been listed on realestate.com.au or domain.com.au, call the homeowner on behalf of a new real estate agent using conversational AI voice, and send the new realestate agent a WhatsApp message to book an appraisal or receive feedback from the call.");
+  const [requestText, setRequestText] = useState("A real estate business in Australia wants to trigger when listings are finishing their exclusive contract that has been listed on realestate.com.au or domain.com.au, call the homeowner on behalf of a new real estate agent using conversational AI voice, and send the new realestate agent a WhatsApp message to book an appraisal or to receive feedback from the call.");
   
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [analysis, setAnalysis] = useState(DEMO_ANALYSIS);
   const [activeTab, setActiveTab] = useState("visualizer");
   const [copied, setCopied] = useState(false);
   const [remainingFreeRuns, setRemainingFreeRuns] = useState(5);
+  const [affiliateLink, setAffiliateLink] = useState("");
 
   const applyPreset = (preset) => {
     setIndustry(preset.industry);
@@ -140,6 +178,9 @@ export default function App() {
             "summary": "Short executive breakdown of the complete workflow execution plan",
             "architectureSteps": [
               { "step": 1, "name": "...", "type": "Trigger Source|AI Processing|LLM Intelligence|Action Dispatcher", "tech": "...", "details": "..." }
+            ],
+            "recommendedTools": [
+              { "name": "Tool Name", "category": "Voice AI", "description": "...", "badge": "AI", "macLink": "https://...", "winLink": "https://..." }
             ],
             "implementationGuide": [
               {
@@ -186,6 +227,10 @@ export default function App() {
         { step: 2, name: "AI Orchestration", type: "AI Processing", tech: "Gemini 3 Flash + Voice Engine", details: "Executes automated communication or reasoning logic." },
         { step: 3, name: "Multi-channel Notification", type: "Action Dispatcher", tech: "REST API / Messaging API", details: "Dispatches alerts & syncs results back into internal CRM." }
       ],
+      recommendedTools: [
+        { name: "Vapi.ai", category: "Voice AI", description: "Outbound AI voice agent provider.", badge: "AI Voice", macLink: "https://vapi.ai/", winLink: "https://vapi.ai/" },
+        { name: "Rex CRM", category: "CRM", description: "Real estate database & client tracking.", badge: "CRM", macLink: "https://www.rexsoftware.com/", winLink: "https://www.rexsoftware.com/" }
+      ],
       implementationGuide: [
         {
           phase: "Phase 1: Environment & Credential Configuration",
@@ -222,8 +267,8 @@ export default function App() {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 font-sans flex flex-col antialiased m-0 p-0">
       {/* Top Navbar */}
-      <header className="border-b border-slate-800 bg-slate-900/90 backdrop-blur sticky top-0 z-50 mt-0 pt-0">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <header className="border-b border-slate-800 bg-slate-900/90 backdrop-blur sticky top-0 z-50 m-0 pt-0">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <div className="bg-gradient-to-tr from-cyan-500 to-blue-600 p-2 rounded-xl text-white shadow-lg shadow-cyan-500/20">
               <Layers className="w-6 h-6" />
@@ -232,16 +277,16 @@ export default function App() {
               <h1 className="text-lg font-bold bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent">
                 Workflow Intelligence Platform
               </h1>
-              </div>
+            </div>
           </div>
         </div>
       </header>
 
       {/* Main Single-Column Vertical Container */}
-      <main className="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col space-y-8">
+      <main className="flex-1 max-w-4xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
         
-        {/* Demo Scenarios Section */}
-        <section className="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl">
+        {/* Presets Card */}
+        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl">
           <div className="flex items-center justify-between mb-3">
             <h2 className="text-sm font-semibold text-slate-300 flex items-center">
               <Play className="w-4 h-4 mr-2 text-cyan-400" /> Demo Scenarios
@@ -263,10 +308,10 @@ export default function App() {
               </button>
             ))}
           </div>
-        </section>
+        </div>
 
-        {/* Automation Request Intake Section */}
-        <section className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-5">
+        {/* Workflow Intake Form */}
+        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-5">
           <div className="border-b border-slate-800 pb-4">
             <h2 className="text-lg font-bold text-white flex items-center">
               <Wrench className="w-5 h-5 mr-2 text-cyan-400" /> Automation Request Intake
@@ -350,69 +395,116 @@ export default function App() {
               </>
             )}
           </button>
-        </section>
+        </div>
 
-        {/* Output Navigation & Results Section */}
-        <section className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-6">
-          <div className="flex flex-col sm:flex-row items-center justify-between border-b border-slate-800 pb-4 gap-4">
-            <div className="flex space-x-1 w-full sm:w-auto overflow-x-auto pb-1 sm:pb-0">
-              <button
-                onClick={() => setActiveTab("visualizer")}
-                className={`px-4 py-2 rounded-xl text-xs font-semibold flex items-center transition-all cursor-pointer whitespace-nowrap ${
-                  activeTab === "visualizer"
-                    ? "bg-slate-800 text-cyan-400 border border-slate-700 shadow"
-                    : "text-slate-400 hover:text-slate-200"
-                }`}
-              >
-                <Layers className="w-3.5 h-3.5 mr-1.5" /> Architecture Map
-              </button>
+        {/* Output Section */}
+        <div className="bg-slate-900 border border-slate-800 p-1.5 rounded-2xl flex items-center justify-between shadow-xl">
+          <div className="flex space-x-1">
+            <button
+              onClick={() => setActiveTab("visualizer")}
+              className={`px-3.5 py-2 rounded-xl text-xs font-semibold flex items-center transition-all cursor-pointer ${
+                activeTab === "visualizer"
+                  ? "bg-slate-800 text-cyan-400 border border-slate-700 shadow"
+                  : "text-slate-400 hover:text-slate-200"
+              }`}
+            >
+              <Layers className="w-3.5 h-3.5 mr-1.5" /> Architecture Map
+            </button>
 
-              <button
-                onClick={() => setActiveTab("guide")}
-                className={`px-4 py-2 rounded-xl text-xs font-semibold flex items-center transition-all cursor-pointer whitespace-nowrap ${
-                  activeTab === "guide"
-                    ? "bg-slate-800 text-cyan-400 border border-slate-700 shadow"
-                    : "text-slate-400 hover:text-slate-200"
-                }`}
-              >
-                <BookOpen className="w-3.5 h-3.5 mr-1.5" /> Implementation Guide
-              </button>
+            <button
+              onClick={() => setActiveTab("guide")}
+              className={`px-3.5 py-2 rounded-xl text-xs font-semibold flex items-center transition-all cursor-pointer ${
+                activeTab === "guide"
+                  ? "bg-slate-800 text-cyan-400 border border-slate-700 shadow"
+                  : "text-slate-400 hover:text-slate-200"
+              }`}
+            >
+              <BookOpen className="w-3.5 h-3.5 mr-1.5" /> Implementation Guide
+            </button>
 
-              <button
-                onClick={() => setActiveTab("blueprint")}
-                className={`px-4 py-2 rounded-xl text-xs font-semibold flex items-center transition-all cursor-pointer whitespace-nowrap ${
-                  activeTab === "blueprint"
-                    ? "bg-slate-800 text-cyan-400 border border-slate-700 shadow"
-                    : "text-slate-400 hover:text-slate-200"
-                }`}
-              >
-                <FileText className="w-3.5 h-3.5 mr-1.5" /> Technical Spec
-              </button>
-            </div>
-
-            <div className="flex items-center space-x-2">
-              <button
-                onClick={copyBlueprint}
-                className="p-2 rounded-lg bg-slate-800 hover:bg-slate-750 text-slate-300 transition-colors cursor-pointer flex items-center text-xs px-3"
-                title="Copy Analysis JSON"
-              >
-                {copied ? <Check className="w-4 h-4 text-emerald-400 mr-1.5" /> : <Copy className="w-4 h-4 mr-1.5" />}
-                <span>{copied ? "Copied" : "Copy"}</span>
-              </button>
-              <button
-                onClick={downloadBlueprint}
-                className="p-2 rounded-lg bg-slate-800 hover:bg-slate-750 text-slate-300 transition-colors cursor-pointer flex items-center text-xs px-3"
-                title="Download Blueprint JSON"
-              >
-                <Download className="w-4 h-4 mr-1.5" />
-                <span>Export</span>
-              </button>
-            </div>
+            <button
+              onClick={() => setActiveTab("blueprint")}
+              className={`px-3.5 py-2 rounded-xl text-xs font-semibold flex items-center transition-all cursor-pointer ${
+                activeTab === "blueprint"
+                  ? "bg-slate-800 text-cyan-400 border border-slate-700 shadow"
+                  : "text-slate-400 hover:text-slate-200"
+              }`}
+            >
+              <FileText className="w-3.5 h-3.5 mr-1.5" /> Technical Spec
+            </button>
           </div>
 
-          {/* TAB 1: Visual Architecture */}
-          {activeTab === "visualizer" && (
-            <div className="space-y-6">
+          <div className="flex items-center space-x-2 pr-2">
+            <button
+              onClick={copyBlueprint}
+              className="p-2 rounded-lg bg-slate-800 hover:bg-slate-750 text-slate-300 transition-colors cursor-pointer"
+              title="Copy Analysis JSON"
+            >
+              {copied ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
+            </button>
+            <button
+              onClick={downloadBlueprint}
+              className="p-2 rounded-lg bg-slate-800 hover:bg-slate-750 text-slate-300 transition-colors cursor-pointer"
+              title="Download Blueprint JSON"
+            >
+              <Download className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+
+        {activeTab === "visualizer" && (
+          <div className="space-y-6">
+            {/* RECOMMENDED AI TOOLS GRID WITH MAC/WIN AFFILIATE BUTTONS */}
+            {analysis?.recommendedTools && analysis.recommendedTools.length > 0 && (
+              <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-sm font-bold text-white flex items-center">
+                    <Sparkles className="w-4 h-4 mr-2 text-cyan-400" /> Recommended AI & System Tools
+                  </h3>
+                  <span className="text-[10px] text-slate-400">Add your affiliate links in <code className="text-cyan-400 font-mono">TOOL_AFFILIATE_MAP</code></span>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {analysis.recommendedTools.map((tool, idx) => (
+                    <div key={idx} className="bg-slate-950 border border-slate-800 rounded-xl p-4 flex flex-col justify-between space-y-3">
+                      <div>
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="text-xs font-bold text-slate-200">{tool.name}</span>
+                          <span className="text-[10px] bg-cyan-950 text-cyan-400 border border-cyan-800/50 px-2 py-0.5 rounded font-medium">
+                            {tool.badge || tool.category}
+                          </span>
+                        </div>
+                        <p className="text-[11px] text-slate-400 leading-relaxed">{tool.description}</p>
+                      </div>
+                      <div className="flex items-center space-x-2 pt-2 border-t border-slate-800/80">
+                        <a
+                          href={TOOL_AFFILIATE_MAP[tool.name] || tool.macLink || TOOL_AFFILIATE_MAP["Default"]}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex-1 bg-slate-800 hover:bg-slate-700 text-cyan-300 text-[11px] font-semibold py-1.5 px-3 rounded-lg flex items-center justify-center space-x-1.5 transition-colors cursor-pointer"
+                        >
+                          <Download className="w-3 h-3" />
+                          <span>Get Desktop App: Mac</span>
+                          <ExternalLink className="w-2.5 h-2.5 opacity-60" />
+                        </a>
+                        <a
+                          href={TOOL_AFFILIATE_MAP[tool.name] || tool.winLink || TOOL_AFFILIATE_MAP["Default"]}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex-1 bg-slate-800 hover:bg-slate-700 text-cyan-300 text-[11px] font-semibold py-1.5 px-3 rounded-lg flex items-center justify-center space-x-1.5 transition-colors cursor-pointer"
+                        >
+                          <Download className="w-3 h-3" />
+                          <span>Win</span>
+                          <ExternalLink className="w-2.5 h-2.5 opacity-60" />
+                        </a>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Architecture Map Card */}
+            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-6">
               <div>
                 <div className="flex items-center justify-between">
                   <h3 className="text-base font-bold text-white flex items-center">
@@ -465,51 +557,54 @@ export default function App() {
                 </div>
               </div>
             </div>
-          )}
+          </div>
+        )}
 
-          {/* TAB 2: Implementation Guide */}
-          {activeTab === "guide" && (
-            <div className="space-y-6">
-              <div>
-                <h3 className="text-base font-bold text-white flex items-center">
-                  <BookOpen className="w-5 h-5 mr-2 text-cyan-400" /> Step-by-Step Business Implementation Guide
-                </h3>
-                <p className="text-xs text-slate-400 mt-1">
-                  Actionable onboarding roadmap to integrate this automated workflow into your daily business operations.
-                </p>
-              </div>
-
-              <div className="space-y-6">
-                {analysis?.implementationGuide?.map((phase, pIdx) => (
-                  <div key={pIdx} className="bg-slate-950 border border-slate-800 rounded-xl p-5 space-y-3">
-                    <div className="flex items-center space-x-2 border-b border-slate-800/80 pb-2.5">
-                      <div className="p-1.5 rounded-lg bg-cyan-950 text-cyan-400 border border-cyan-800/60">
-                        <ShieldCheck className="w-4 h-4" />
-                      </div>
-                      <h4 className="text-sm font-bold text-slate-200">
-                        {phase.phase}
-                      </h4>
-                    </div>
-
-                    <ul className="space-y-2.5 pt-1">
-                      {phase.steps.map((stepText, sIdx) => (
-                        <li key={sIdx} className="flex items-start text-xs text-slate-300 space-x-2.5">
-                          <span className="flex-shrink-0 w-5 h-5 rounded-full bg-slate-900 border border-slate-700 text-cyan-400 flex items-center justify-center text-[10px] font-bold mt-0.5">
-                            {sIdx + 1}
-                          </span>
-                          <span className="leading-relaxed text-slate-300">{stepText}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-              </div>
+        {activeTab === "guide" && (
+          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-6">
+            <div>
+              <h3 className="text-base font-bold text-white flex items-center">
+                <BookOpen className="w-5 h-5 mr-2 text-cyan-400" /> Step-by-Step Business Implementation Guide
+              </h3>
+              <p className="text-xs text-slate-400 mt-1">
+                Actionable onboarding roadmap to integrate this automated workflow into your daily business operations.
+              </p>
             </div>
-          )}
 
-          {/* TAB 3: Technical Spec */}
-          {activeTab === "blueprint" && (
-            <div className="space-y-5">
+            <div className="space-y-6">
+              {analysis?.implementationGuide?.map((phase, pIdx) => (
+                <div key={pIdx} className="bg-slate-950 border border-slate-800 rounded-xl p-5 space-y-3">
+                  <div className="flex items-center space-x-2 border-b border-slate-800/80 pb-2.5">
+                    <div className="p-1.5 rounded-lg bg-cyan-950 text-cyan-400 border border-cyan-800/60">
+                      {pIdx === 0 && <ShieldCheck className="w-4 h-4" />}
+                      {pIdx === 1 && <Bot className="w-4 h-4" />}
+                      {pIdx === 2 && <Users className="w-4 h-4" />}
+                      {pIdx === 3 && <Rocket className="w-4 h-4" />}
+                    </div>
+                    <h4 className="text-sm font-bold text-slate-200">
+                      {phase.phase}
+                    </h4>
+                  </div>
+
+                  <ul className="space-y-2.5 pt-1">
+                    {phase.steps.map((stepText, sIdx) => (
+                      <li key={sIdx} className="flex items-start text-xs text-slate-300 space-x-2.5">
+                        <span className="flex-shrink-0 w-5 h-5 rounded-full bg-slate-900 border border-slate-700 text-cyan-400 flex items-center justify-center text-[10px] font-bold mt-0.5">
+                          {sIdx + 1}
+                        </span>
+                        <span className="leading-relaxed text-slate-300">{stepText}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {activeTab === "blueprint" && (
+          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-5">
+            <div className="flex items-center justify-between">
               <div>
                 <h3 className="text-base font-bold text-white flex items-center">
                   <FileText className="w-5 h-5 mr-2 text-cyan-400" /> Exportable Implementation Spec
@@ -518,27 +613,35 @@ export default function App() {
                   Machine-readable configuration schema for automated system deployment and workflow orchestration.
                 </p>
               </div>
-
-              <div className="bg-slate-950 border border-slate-800 rounded-xl p-4 font-mono text-xs text-emerald-400 overflow-x-auto max-h-[450px]">
-                <pre>{JSON.stringify({
-                  metadata: {
-                    platform: "Workflow Intelligence Business Implementation Engine",
-                    industry,
-                    country,
-                    generated_at: new Date().toISOString()
-                  },
-                  systems_used: systems.split(',').map(s => s.trim()),
-                  architecture: analysis.architectureSteps,
-                  implementation_guide: analysis.implementationGuide
-                }, null, 2)}</pre>
-              </div>
+              <button
+                onClick={downloadBlueprint}
+                className="px-3 py-1.5 bg-cyan-500 hover:bg-cyan-400 text-slate-950 text-xs font-bold rounded-lg flex items-center transition-colors cursor-pointer"
+              >
+                <Download className="w-3.5 h-3.5 mr-1.5" /> Export JSON
+              </button>
             </div>
-          )}
-        </section>
+
+            <div className="bg-slate-950 border border-slate-800 rounded-xl p-4 font-mono text-xs text-emerald-400 overflow-x-auto max-h-[450px]">
+              <pre>{JSON.stringify({
+                metadata: {
+                  platform: "Workflow Intelligence Business Implementation Engine",
+                  industry,
+                  country,
+                  generated_at: new Date().toISOString()
+                },
+                systems_used: systems.split(',').map(s => s.trim()),
+                recommended_tools: analysis.recommendedTools,
+                architecture: analysis.architectureSteps,
+                implementation_guide: analysis.implementationGuide
+              }, null, 2)}</pre>
+            </div>
+          </div>
+        )}
 
       </main>
 
-      <footer className="border-t border-slate-800 py-4 text-center text-xs text-slate-500">
+      {/* Footer */}
+      <footer className="border-t border-slate-800 py-4 text-center text-xs text-slate-500 mt-12">
         Workflow Intelligence Platform &bull; End-to-End Automation Architecture & Business Implementation Guides
       </footer>
     </div>
