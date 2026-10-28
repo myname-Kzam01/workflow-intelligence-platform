@@ -345,24 +345,22 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 font-sans flex flex-col antialiased relative">
-      {/* Top Navbar */}
-      <header className="border-b border-slate-800 bg-slate-900/90 backdrop-blur sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <div className="flex items-center space-x-3">
-            <div className="bg-gradient-to-tr from-cyan-500 to-blue-600 p-2 rounded-xl text-white shadow-lg shadow-cyan-500/20">
-              <Layers className="w-6 h-6" />
+      {/* Top Navbar - Clean, Compact & Flush */}
+      <header className="border-b border-slate-800 bg-slate-900/95 backdrop-blur sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
+          <div className="flex items-center space-x-2.5">
+            <div className="bg-gradient-to-tr from-cyan-500 to-blue-600 p-1.5 rounded-lg text-white shadow-md shadow-cyan-500/20">
+              <Layers className="w-4 h-4" />
             </div>
-            <div>
-              <h1 className="text-base sm:text-lg font-bold bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent">
-                Workflow Intelligence Platform
-              </h1>
-            </div>
+            <h1 className="text-sm sm:text-base font-bold bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent">
+              Workflow Intelligence Platform
+            </h1>
           </div>
         </div>
       </header>
 
-      {/* Main Container */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      {/* Main Container - Flush with no top gap */}
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         
         {/* LEFT COLUMN: Workflow Intake & Controls (5 cols) */}
         <section className="lg:col-span-5 space-y-6">
@@ -577,7 +575,6 @@ export default function App() {
                             <p className="text-[11px] text-slate-400 leading-relaxed">{sw.purpose}</p>
                           </div>
                           
-                          {/* Download Links for Mac & Windows with Backend Affiliate Link Attached */}
                           <div className="pt-2 border-t border-slate-800/80 flex items-center justify-between gap-2">
                             <span className="text-[10px] text-slate-400 font-medium">Get Desktop App:</span>
                             <div className="flex space-x-1.5">
@@ -614,7 +611,6 @@ export default function App() {
               <div className="space-y-4">
                 {analysis?.architectureSteps?.map((step, idx) => (
                   <div key={idx} className="relative flex items-start group">
-                    {/* Node Index Icon */}
                     <div className="flex flex-col items-center mr-4">
                       <div className="w-8 h-8 rounded-full bg-slate-800 border border-cyan-500/40 text-cyan-300 flex items-center justify-center font-bold text-xs shadow-md shadow-cyan-500/10">
                         {step.step}
@@ -624,7 +620,6 @@ export default function App() {
                       )}
                     </div>
 
-                    {/* Node Card Content */}
                     <div className="flex-1 bg-slate-950/80 border border-slate-800 rounded-xl p-4 hover:border-cyan-500/40 transition-colors shadow-md">
                       <div className="flex items-center justify-between mb-1">
                         <span className="text-xs font-semibold text-cyan-300">{step.name}</span>
@@ -666,7 +661,6 @@ export default function App() {
                 </p>
               </div>
 
-              {/* Implementation Phases */}
               <div className="space-y-6">
                 {analysis?.implementationGuide?.map((phase, pIdx) => (
                   <div key={pIdx} className="bg-slate-950 border border-slate-800 rounded-xl p-5 space-y-3">
@@ -715,7 +709,6 @@ export default function App() {
                 </button>
               </div>
 
-              {/* JSON Editor Box */}
               <div className="bg-slate-950 border border-slate-800 rounded-xl p-4 font-mono text-xs text-emerald-400 overflow-x-auto max-h-[450px]">
                 <pre>{JSON.stringify({
                   metadata: {
