@@ -8,7 +8,7 @@ import {
 
 // Affiliate Link Mapping Dictionary for Tools (Add your referral/affiliate links here)
 const TOOL_AFFILIATE_MAP = {
-  "Vapi.ai": "https://tolt.link/workflowintelligenceplatform",
+  "Vapi.ai": "https://vapi.ai/?aff=WorkflowIntelligencePlatform",
   "Bland.ai": "https://bland.ai/?ref=your_affiliate_id",
   "Retell AI": "https://retellai.com/?ref=your_affiliate_id",
   "ElevenLabs AI Voice": "https://elevenlabs.io/?from=your_affiliate_id",
