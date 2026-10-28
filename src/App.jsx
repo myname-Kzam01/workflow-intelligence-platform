@@ -6,14 +6,19 @@ import {
   BookOpen, Rocket, ShieldCheck, Users, Workflow, ExternalLink
 } from 'lucide-react';
 
-// Affiliate Link Mapping Dictionary for Tools
+// Affiliate Link Mapping Dictionary for Tools (Add your referral/affiliate links here)
 const TOOL_AFFILIATE_MAP = {
   "Vapi.ai": "https://vapi.ai/?via=your_affiliate_id",
   "Bland.ai": "https://bland.ai/?ref=your_affiliate_id",
+  "Retell AI": "https://retellai.com/?ref=your_affiliate_id",
+  "ElevenLabs AI Voice": "https://elevenlabs.io/?from=your_affiliate_id",
+  "Deepgram": "https://deepgram.com/?ref=your_affiliate_id",
   "Rex CRM": "https://www.rexsoftware.com/?ref=your_affiliate_id",
+  "HubSpot CRM": "https://hubspot.com/?ref=your_affiliate_id",
+  "Make.com": "https://www.make.com/?pc=your_affiliate_id",
+  "Zapier": "https://zapier.com/sign-up?ref=your_affiliate_id",
   "WhatsApp Business API": "https://business.whatsapp.com/",
   "Twilio": "https://www.twilio.com/referral/your_affiliate_id",
-  "Gemini 3 Flash": "https://ai.google.dev/",
   "Default": "https://your-default-affiliate-link.com"
 };
 
@@ -39,6 +44,82 @@ const PRESETS = [
     country: "Global",
     systems: "Shopify Plus, ElevenLabs AI Voice, WhatsApp Business API, Klaviyo, Gorgias",
     request: "When a customer with cart value > $1,000 abandons cart, trigger a dynamic personalized voice call from an AI brand concierge within 15 minutes, offering an exclusive discount and pushing notes to Gorgias CRM."
+  }
+];
+
+// Comprehensive Master Library of Tools available for EVERY case / workflow
+const MASTER_RECOMMENDED_TOOLS = [
+  {
+    name: "Vapi.ai",
+    category: "Voice AI",
+    description: "Ultra-low latency conversational voice agent dispatch for automated outbound client calls.",
+    badge: "Voice AI",
+    macLink: "https://vapi.ai/",
+    winLink: "https://vapi.ai/"
+  },
+  {
+    name: "Retell AI",
+    category: "Voice AI",
+    description: "Lightning-fast conversational voice AI infrastructure for custom telephony and voice agents.",
+    badge: "Voice AI",
+    macLink: "https://retellai.com/",
+    winLink: "https://retellai.com/"
+  },
+  {
+    name: "Bland.ai",
+    category: "Voice AI",
+    description: "Enterprise phone calling AI platform with high-volume concurrency support.",
+    badge: "Voice AI",
+    macLink: "https://bland.ai/",
+    winLink: "https://bland.ai/"
+  },
+  {
+    name: "ElevenLabs AI Voice",
+    category: "Voice AI",
+    description: "Ultra-realistic AI voice generation and emotional speech synthesis for natural dialogues.",
+    badge: "Voice AI",
+    macLink: "https://elevenlabs.io/",
+    winLink: "https://elevenlabs.io/"
+  },
+  {
+    name: "Rex CRM",
+    category: "CRM",
+    description: "Stores listing contract dates and logs automated outreach history inside client timelines.",
+    badge: "CRM",
+    macLink: "https://www.rexsoftware.com/",
+    winLink: "https://www.rexsoftware.com/"
+  },
+  {
+    name: "HubSpot CRM",
+    category: "CRM",
+    description: "Global CRM platform for pipeline tracking and customer relationship management.",
+    badge: "CRM",
+    macLink: "https://hubspot.com/",
+    winLink: "https://hubspot.com/"
+  },
+  {
+    name: "Make.com",
+    category: "Automation",
+    description: "Visual automation builder connecting webhooks, APIs, and data triggers effortlessly.",
+    badge: "Automation",
+    macLink: "https://www.make.com/",
+    winLink: "https://www.make.com/"
+  },
+  {
+    name: "Zapier",
+    category: "Automation",
+    description: "Industry standard integration glue connecting thousands of cloud web apps.",
+    badge: "Automation",
+    macLink: "https://zapier.com/",
+    winLink: "https://zapier.com/"
+  },
+  {
+    name: "WhatsApp Business API",
+    category: "Messaging",
+    description: "Dispatches instant alerts and 1-click booking links to assigned sales agents.",
+    badge: "Messaging",
+    macLink: "https://business.whatsapp.com/",
+    winLink: "https://business.whatsapp.com/"
   }
 ];
 
@@ -75,32 +156,7 @@ const DEMO_ANALYSIS = {
       details: "Pushes immediate notification to the assigned real estate agent with call summary and 1-click booking links for property appraisal."
     }
   ],
-  recommendedTools: [
-    {
-      name: "Vapi.ai",
-      category: "Voice AI Calling",
-      description: "Ultra-low latency conversational voice agent dispatch for automated outbound client calls.",
-      badge: "Multi-Channel",
-      macLink: "https://vapi.ai/?via=mac_download_aff",
-      winLink: "https://vapi.ai/?via=win_download_aff"
-    },
-    {
-      name: "Rex CRM",
-      category: "System of Record",
-      description: "Stores listing contract dates and logs automated outreach history inside client timelines.",
-      badge: "System of Record",
-      macLink: "https://www.rexsoftware.com/?ref=mac_download_aff",
-      winLink: "https://www.rexsoftware.com/?ref=win_download_aff"
-    },
-    {
-      name: "WhatsApp Business API",
-      category: "Messaging",
-      description: "Dispatches instant alerts and 1-click booking links to assigned real estate agents.",
-      badge: "Messaging",
-      macLink: "https://business.whatsapp.com/",
-      winLink: "https://business.whatsapp.com/"
-    }
-  ],
+  recommendedTools: MASTER_RECOMMENDED_TOOLS,
   implementationGuide: [
     {
       phase: "Phase 1: Setup & API Credentials",
@@ -169,7 +225,7 @@ export default function App() {
 
     setTimeout(async () => {
       if (isDefaultPreset) {
-        setAnalysis(DEMO_ANALYSIS);
+        setAnalysis({ ...DEMO_ANALYSIS, recommendedTools: MASTER_RECOMMENDED_TOOLS });
         setIsAnalyzing(false);
       } else {
         try {
@@ -178,9 +234,6 @@ export default function App() {
             "summary": "Short executive breakdown of the complete workflow execution plan",
             "architectureSteps": [
               { "step": 1, "name": "...", "type": "Trigger Source|AI Processing|LLM Intelligence|Action Dispatcher", "tech": "...", "details": "..." }
-            ],
-            "recommendedTools": [
-              { "name": "Tool Name", "category": "Voice AI", "description": "...", "badge": "AI", "macLink": "https://...", "winLink": "https://..." }
             ],
             "implementationGuide": [
               {
@@ -206,7 +259,11 @@ export default function App() {
           const result = await res.json();
           const jsonText = result.candidates?.[0]?.content?.parts?.[0]?.text;
           if (jsonText) {
-            setAnalysis(JSON.parse(jsonText));
+            const parsed = JSON.parse(jsonText);
+            setAnalysis({
+              ...parsed,
+              recommendedTools: MASTER_RECOMMENDED_TOOLS
+            });
           } else {
             fallbackGen();
           }
@@ -227,10 +284,7 @@ export default function App() {
         { step: 2, name: "AI Orchestration", type: "AI Processing", tech: "Gemini 3 Flash + Voice Engine", details: "Executes automated communication or reasoning logic." },
         { step: 3, name: "Multi-channel Notification", type: "Action Dispatcher", tech: "REST API / Messaging API", details: "Dispatches alerts & syncs results back into internal CRM." }
       ],
-      recommendedTools: [
-        { name: "Vapi.ai", category: "Voice AI", description: "Outbound AI voice agent provider.", badge: "AI Voice", macLink: "https://vapi.ai/", winLink: "https://vapi.ai/" },
-        { name: "Rex CRM", category: "CRM", description: "Real estate database & client tracking.", badge: "CRM", macLink: "https://www.rexsoftware.com/", winLink: "https://www.rexsoftware.com/" }
-      ],
+      recommendedTools: MASTER_RECOMMENDED_TOOLS,
       implementationGuide: [
         {
           phase: "Phase 1: Environment & Credential Configuration",
@@ -461,7 +515,6 @@ export default function App() {
                   <h3 className="text-sm font-bold text-white flex items-center">
                     <Sparkles className="w-4 h-4 mr-2 text-cyan-400" /> Recommended AI & System Tools
                   </h3>
-                  <span className="text-[10px] text-slate-400">Add your affiliate links in <code className="text-cyan-400 font-mono">TOOL_AFFILIATE_MAP</code></span>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {analysis.recommendedTools.map((tool, idx) => (
