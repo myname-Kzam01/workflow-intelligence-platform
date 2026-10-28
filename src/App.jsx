@@ -201,13 +201,12 @@ export default function App() {
   const [industry, setIndustry] = useState("Real Estate");
   const [country, setCountry] = useState("Australia");
   const [systems, setSystems] = useState("realestate.com.au, domain.com.au, Rex CRM, Twilio, WhatsApp");
-  const [requestText, setRequestText] = useState("A real estate business in Australia wants to trigger when listings are finishing their exclusive contract that has been listed on realestate.com.au or domain.com.au, call the homeowner on behalf of a new real estate agent using conversational AI voice, and send the new realestate agent a WhatsApp message to book an appraisal or to receive feedback from the call.");
+  const [requestText, setRequestText] = useState("A real estate business in Australia wants to trigger when listings are finishing their exclusive contract that has been listed on realestate.com.au or domain.com.au, call the homeowner on behalf of a new real estate agent using conversational AI voice, and send the new realestate agent a WhatsApp message to book an appraisal or receive feedback from the call.");
   
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [analysis, setAnalysis] = useState(DEMO_ANALYSIS);
   const [activeTab, setActiveTab] = useState("visualizer");
   const [copied, setCopied] = useState(false);
-  const [remainingFreeRuns, setRemainingFreeRuns] = useState(5);
   const [affiliateLink, setAffiliateLink] = useState("");
 
   const applyPreset = (preset) => {
@@ -445,7 +444,7 @@ export default function App() {
             ) : (
               <>
                 <Sparkles className="w-4 h-4 fill-slate-950" />
-                <span>Generate Workflow & Implementation Plan ({remainingFreeRuns} Free Left)</span>
+                <span>Generate Workflow & Implementation Plan</span>
               </>
             )}
           </button>
