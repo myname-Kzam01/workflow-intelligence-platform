@@ -561,7 +561,7 @@ export default function App() {
                           className="flex-1 bg-slate-800 hover:bg-slate-700 text-cyan-300 text-[11px] font-semibold py-1.5 px-3 rounded-lg flex items-center justify-center space-x-1.5 transition-colors cursor-pointer"
                         >
                           <Download className="w-3 h-3" />
-                          <span>Get Desktop App: Mac</span>
+                          <span>Mac</span>
                           <ExternalLink className="w-2.5 h-2.5 opacity-60" />
                         </a>
                         <a
